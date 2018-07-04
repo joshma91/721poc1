@@ -14,10 +14,6 @@ contract MyToken is ERC721Token {
     super._mint(msg.sender, newTokenId);
   }
 
-  function getBalance() public {
-    super.balanceOf()
-  }
-
   function purchase() public payable {
   	require(msg.value == 1 ether);
   }
