@@ -13,8 +13,8 @@ getContractInstance(web3, contractDefinition).then(x => contract = x)
 
 module.exports = async (req, res) => {
   // TODO - parse json sent up by client to get credentials
-  const data = await json(req)
-  console.log(data)
+  // const data = await json(req)
+  // console.log(data)
   
   // TODO - check to make sure the user credentials are valid
   // TODO - check to make sure the user has paid on the smart contract
@@ -22,6 +22,8 @@ module.exports = async (req, res) => {
   // check balance
   const tx = await contract.balanceOf.call(accounts[0], { from: accounts[0] })
   console.log('balanceOf:', tx.toString())
-
+  
+  // allow requests from anywhere (maybe change this for production)
+  res.setHeader('Access-Control-Allow-Origin', '*')
   return 'Here is your secret resource'
 }

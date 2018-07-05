@@ -37,6 +37,11 @@ class App extends Component {
     console.log(tx.toString())
   }
 
+  getBook = async () => {
+    const res = await fetch("http://localhost:3001").then(x => x.text())
+    console.log(res)
+  }
+
   render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>
@@ -45,6 +50,7 @@ class App extends Component {
       <div className="App">
         <button onClick={this.buyBook}>Click to Buy</button>
         <button onClick={this.checkBalance}>Check Balance of NFT</button>
+        <button onClick={this.getBook}>Get Book</button>
       </div>
     );
   }
