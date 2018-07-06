@@ -31,6 +31,10 @@ class App extends Component {
     console.log(tx)
   }
 
+  buyBookWithDai = async () => {
+
+  }
+
   checkBalance = async () => {
     const { accounts, contract, web3 } = this.state
     const tx = await contract.balanceOf.call(accounts[0], { from: accounts[0] })
@@ -48,6 +52,7 @@ class App extends Component {
     }
     return (
       <div className="App">
+        <button onClick={this.buyBookWithDai}>Buy With Dai</button>
         <button onClick={this.buyBook}>Click to Buy</button>
         <button onClick={this.checkBalance}>Check Balance of NFT</button>
         <button onClick={this.getBook}>Get Book</button>
