@@ -36,6 +36,11 @@ contract('Testing MyToken contract', function(accounts) {
     
   })
 
+  it('should ensure that the DAI address is being set properly', async () => {
+    const daiAddress = await bookToken.getDaiAddress.call({ from: accounts[0] });
+    expect(daiAddress == daiToken.address);
+  })
+
   it('should pay 1 ETH into contract and buy a NFT representing the purchase', async () => {
    
     const before = await bookToken.balanceOf.call(accounts[1], { from: accounts[1] })
