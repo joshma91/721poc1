@@ -6,12 +6,18 @@ import "./DSToken.sol";
 contract MyToken is ERC721Token {
 
   address daiAddress;
+  address _owner;
 
   constructor (string _name, string _symbol) public ERC721Token(_name, _symbol) {
+    _owner = msg.sender;
   }
 
+  modifier isOwner() {
+    require(msg.sender == _owner);
+    _;
+  }
 
-  function setDaiAddress(address _addr) public {
+  function setDaiAddress(address _addr) public isOwner {
     daiAddress = _addr;
   }
 
@@ -26,8 +32,12 @@ contract MyToken is ERC721Token {
   }
 
   function buyBookWithDai() public payable {
+    bool daiTransferSuccessful;
+
     DSToken dai = DSToken(daiAddress);
-    require(dai.transferFrom(msg.sender, address(this), 1));
+    daiTransferSuccessful = dai.transferFrom(msg.sender, this, 1);
+    require(daiTransferSuccessful);
+
     uint256 newTokenId = super.totalSupply() + 1;
     super._mint(msg.sender, newTokenId);
   }
